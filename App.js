@@ -5,24 +5,25 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ImageScreen from "./screens/ImageScreen";
 import HomeScreen from "./screens/HomeScreen";
 import { Text } from "react-native";
+import { useState } from "react";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [openSearch, setOpenSearch] = useState(false);
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="HomeScreen"
-          component={HomeScreen}
           options={{
             headerLeft: () => <Text>Logo</Text>,
             headerRight: () => (
               <Text
                 style={{ color: "white", fontSize: 18 }}
-                onPress={() => console.log("ola k ase")}
+                onPress={() => setOpenSearch(!openSearch)}
               >
-                Search
+                {openSearch ? "Close" : "Search"}
               </Text>
             ),
             title: "PicPicker App",
@@ -32,8 +33,21 @@ export default function App() {
               backgroundColor: "#0D0D0D",
             },
           }}
+        >
+          {(props) => <HomeScreen {...props} openSearch={openSearch} />}
+        </Stack.Screen>
+        <Stack.Screen
+          name="ImageScreen"
+          component={ImageScreen}
+          options={{
+            title: "PicPicker App",
+            headerTintColor: "#fff",
+            headerTitleStyle: { fontWeight: "bold" },
+            headerStyle: {
+              backgroundColor: "#0D0D0D",
+            },
+          }}
         />
-        <Stack.Screen name="ImageScreen" component={ImageScreen} />
       </Stack.Navigator>
       <StatusBar />
     </NavigationContainer>

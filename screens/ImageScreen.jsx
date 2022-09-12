@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 
-export default function ImageScreen() {
+export default function ImageScreen({ route, photos }) {
+  const { image } = route.params;
   return (
     <View>
-      <Text>Image Screen beibe</Text>
+      <Image source={{ uri: image.src.medium, height: 350 }} />
     </View>
   );
 }
