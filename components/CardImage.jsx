@@ -11,8 +11,8 @@ const CardImage = ({ image }) => {
     >
       <Image
         source={{
-          uri: image.src.small
-            ? image.src.small
+          uri: image.src.portrait
+            ? image.src.portrait
             : "https://www.ncenet.com/wp-content/uploads/2020/04/no-image-png-2.png",
         }}
         style={{ height: 180, width: "100%" }}

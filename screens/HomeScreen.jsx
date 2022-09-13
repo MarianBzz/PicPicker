@@ -9,11 +9,9 @@ export default function HomeScreen({ openSearch }) {
   const [photos, setPhotos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  console.log(openSearch);
-
   const loadImages = async (searchTerm) => {
     const res = await getImages(searchTerm);
-    console.log(res.data.photos);
+
     setPhotos(res.data.photos);
   };
   useEffect(() => {
