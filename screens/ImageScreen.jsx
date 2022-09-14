@@ -8,7 +8,7 @@ import ImageList from "../components/ImageList";
 import { getImages } from "../api/pexels";
 
 export default function ImageScreen({ route }) {
-  const [photos, setPhotos] = useState([]);
+  const [images, setImages] = useState([]);
   const { image } = route.params;
 
   const handlePress = async () => {
@@ -17,16 +17,16 @@ export default function ImageScreen({ route }) {
 
   const loadImages = async () => {
     const res = await getImages();
-
-    setPhotos(res.data.photos);
+    setImages(res.data.photos);
   };
+
   useEffect(() => {
     loadImages();
   }, []);
 
   const downloadFile = async () => {
+    let fileUri = FileSystem.documentDirectory + image.id + ".jpeg";
     try {
-      let fileUri = FileSystem.documentDirectory + image.id + ".jpeg";
       const { uri } = await FileSystem.downloadAsync(
         image.src.original,
         fileUri
@@ -38,7 +38,7 @@ export default function ImageScreen({ route }) {
   };
 
   const saveFile = async (fileUri) => {
-    const { status } = MediaLibrary.requestPermissionsAsync();
+    const { status } = await MediaLibrary.requestPermissionsAsync();
     if (status === "granted") {
       const asset = await MediaLibrary.createAssetAsync(fileUri);
       await MediaLibrary.createAlbumAsync("Download", asset, false);
@@ -75,7 +75,7 @@ export default function ImageScreen({ route }) {
               .map((string) => string[0])
               .join("")
               .toUpperCase()}
-            containerStyle={{ backgroundColor: "red" }}
+            containerStyle={{ backgroundColor: "#4e737c" }}
             rounded
           />
           <TouchableOpacity onPress={handlePress}>
@@ -84,12 +84,12 @@ export default function ImageScreen({ route }) {
         </View>
         <Button
           title="Download"
-          buttonStyle={{ backgroundColor: "red" }}
+          buttonStyle={{ backgroundColor: "#229783" }}
           onPress={() => handleDownload()}
         />
       </View>
       <View>
-        <ImageList photos={photos} />
+        <ImageList photos={images} />
       </View>
     </View>
   );
@@ -97,13 +97,13 @@ export default function ImageScreen({ route }) {
 
 const styles = StyleSheet.create({
   headerPhotographer: {
-    backgroundColor: "#0D0D0D",
+    backgroundColor: "#e5ebec",
     flex: 1,
     flexDirection: "column",
     padding: 10,
   },
   textPhotographer: {
-    color: "#fff",
+    color: "#1c4b56",
     fontWeight: "bold",
     marginStart: 5,
     fontSize: 18,

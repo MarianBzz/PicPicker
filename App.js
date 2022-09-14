@@ -4,8 +4,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import ImageScreen from "./screens/ImageScreen";
 import HomeScreen from "./screens/HomeScreen";
-import { Text } from "react-native";
+import { Text, Image, StyleSheet } from "react-native";
 import { useState } from "react";
+import Logo from "./assets/pickPickerApp.png";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +18,7 @@ export default function App() {
         <Stack.Screen
           name="HomeScreen"
           options={{
-            headerLeft: () => <Text>Logo</Text>,
+            headerLeft: () => <Image source={Logo} style={styles.logo} />,
             headerRight: () => (
               <Text
                 style={{ color: "white", fontSize: 18 }}
@@ -30,7 +31,7 @@ export default function App() {
             headerTintColor: "#fff",
             headerTitleStyle: { fontWeight: "bold" },
             headerStyle: {
-              backgroundColor: "#0D0D0D",
+              backgroundColor: "#1c4b56",
             },
           }}
         >
@@ -44,7 +45,7 @@ export default function App() {
             headerTintColor: "#fff",
             headerTitleStyle: { fontWeight: "bold" },
             headerStyle: {
-              backgroundColor: "#0D0D0D",
+              backgroundColor: "#1c4b56",
             },
           }}
         />
@@ -53,3 +54,12 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  logo: {
+    height: 35,
+    width: 35,
+    borderRadius: 5,
+    marginRight: 4,
+  },
+});

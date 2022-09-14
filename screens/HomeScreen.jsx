@@ -8,11 +8,14 @@ import ImageList from "../components/ImageList";
 export default function HomeScreen({ openSearch }) {
   const [photos, setPhotos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [results, setResults] = useState("");
 
   const loadImages = async (searchTerm) => {
     const res = await getImages(searchTerm);
+    // console.log("HOLAAAAAAAA", res[3].data);
 
     setPhotos(res.data.photos);
+    setResults(res.data.total_results);
   };
   useEffect(() => {
     loadImages();
@@ -21,7 +24,6 @@ export default function HomeScreen({ openSearch }) {
   const handleSearch = async () => {
     await loadImages(searchTerm);
   };
-
   return (
     <>
       {openSearch && (
@@ -44,9 +46,7 @@ export default function HomeScreen({ openSearch }) {
         </View>
       )}
       <View style={styles.container}>
-        <Text style={styles.totalResults}>
-          Total Results:{photos.total_results}
-        </Text>
+        <Text style={styles.totalResults}>Total Results: {results}</Text>
         <ImageList photos={photos} />
       </View>
     </>
@@ -56,32 +56,36 @@ export default function HomeScreen({ openSearch }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0D0D0D",
+    backgroundColor: "#e5ebec",
     alignItems: "center",
     justifyContent: "center",
+    paddingRight: 4,
   },
   totalResults: {
-    color: "#D0D0D0",
+    color: "#0D0D0D",
     textAlign: "right",
     width: "100%",
+    marginTop: 15,
+    marginRight: 10,
   },
   searchInput: {
-    backgroundColor: "#2c292c",
+    backgroundColor: "#67878e",
     borderBottomWidth: 0,
     paddingHorizontal: 4,
     color: "white",
   },
   input: {
-    color: "fff",
+    color: "#fff",
   },
   searchSection: {
-    backgroundColor: "#0D0D0D",
+    backgroundColor: "#b3c3c6",
     width: "100%",
-    paddingLeft: 10,
-    flex: 1 / 5,
+    paddingLeft: 6,
+    flex: 1 / 7,
     flexDirection: "row",
     alignItems: "center",
     paddingRight: 80,
+    paddingTop: 20,
   },
   icon: {
     paddingStart: 10,
