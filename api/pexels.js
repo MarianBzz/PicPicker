@@ -6,7 +6,8 @@ export const getImages = async (searchTerm = "computer") => {
     {
       headers: {
         Authorization:
-          "563492ad6f917000010000017e0a50407fd24e47b2be364ecf5c2ec6",
+          "563492ad6f917000010000011f1d6994f95b4523b1936f5ce88883cf",
+        // "563492ad6f917000010000017e0a50407fd24e47b2be364ecf5c2ec6",
       },
     }
   );

@@ -11,17 +11,22 @@ export default function ImageScreen({ route }) {
   const [images, setImages] = useState([]);
   const { image } = route.params;
 
+  let url = image.url;
+  let keywords = url.split("/");
+  let similar = keywords[4].split("-");
+  console.log("ROUTEEEEEEEEEEEEEEEEEE", similar);
+
   const handlePress = async () => {
     await WebBrowser.openBrowserAsync(image.photographer_url);
   };
 
-  const loadImages = async () => {
-    const res = await getImages();
+  const loadImages = async (data) => {
+    const res = await getImages(data);
     setImages(res.data.photos);
   };
 
   useEffect(() => {
-    loadImages();
+    loadImages(similar[0], similar[1], similar[2], similar[3]);
   }, []);
 
   const downloadFile = async () => {
