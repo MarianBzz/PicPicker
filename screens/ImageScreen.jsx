@@ -14,7 +14,6 @@ export default function ImageScreen({ route }) {
   let url = image.url;
   let keywords = url.split("/");
   let similar = keywords[4].split("-");
-  console.log("ROUTEEEEEEEEEEEEEEEEEE", similar);
 
   const handlePress = async () => {
     await WebBrowser.openBrowserAsync(image.photographer_url);
